@@ -1,17 +1,28 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> v;
+        int i = 0, j = nums.size();
 
-        int len = nums.size();
-        for(int i = 0; i < len; ++i){
-            for(int j = i+1; j < len; ++j){
-                if(nums[i] + nums[j] == target){
-                    v.push_back(i);
-                    v.push_back(j);
-                    return v;
-                }
+        vector<pair<int, int>> pairs;
+        for(int i = 0; i < j; ++i){
+            pairs.push_back({nums[i], i}); // first = nums, second = index
+        }
+
+        vector<int> v;
+        std::sort(pairs.begin(), pairs.end());
+
+        --j;
+        while(i < j){
+            if (pairs[i].first + pairs[j].first == target){
+                v.push_back(pairs[i].second);
+                v.push_back(pairs[j].second);
+                break;
             }
+            else if(pairs[i].first + pairs[j].first > target){
+                --j;
+            } else {
+                ++i;
+            } 
         }
 
         return v;
