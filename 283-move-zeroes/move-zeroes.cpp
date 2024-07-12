@@ -1,9 +1,6 @@
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
-        ios::sync_with_stdio(false);
-        cin.tie(NULL);
-        cout.tie(NULL);
 
         int lastNonZeroFoundAt = 0;
 
