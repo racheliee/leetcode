@@ -13,8 +13,8 @@ public:
         }
 
         reverse(v.begin(), v.end());
+        
         int sz = v.size();
-
         for(int i = 0; i < sz; ++i){
             rev += v[i];
             if(i != sz-1) rev += " ";
