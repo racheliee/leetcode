@@ -6,8 +6,8 @@ public:
         cout.tie(NULL);
 
         int i = 0, j = 0;
-        int len1 = word1.size();
-        int len2 = word2.size();
+        int len1 = word1.length();
+        int len2 = word2.length();
 
         string merge = "";
 
