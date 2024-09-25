@@ -1,6 +1,14 @@
 class Solution {
   public:
     string gcdOfStrings(string str1, string str2) {
+        return (str1 + str2 == str2 + str1) ? str1.substr(0, gcd(str1.length(), str2.length())): "";
+    }
+};
+
+/*
+class Solution {
+  public:
+    string gcdOfStrings(string str1, string str2) {
         int l1 = str1.length(), l2 = str2.length();
 
         string gcd = l1 < l2 ? str1 : str2; // smaller string set to the gcd
@@ -31,3 +39,4 @@ class Solution {
         return true;
     }
 };
+*/
