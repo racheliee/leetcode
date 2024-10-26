@@ -13,7 +13,7 @@ public:
         while (p < q) {
             sum = nums[p] + nums[q];
 
-            if(sum == k){
+            if(sum == k) { // no need to remove elements from vector
                 count++;
                 ++p;
                 --q;
