@@ -14,7 +14,7 @@ public:
         if(head == nullptr)
             return nullptr;
 
-        ListNode* dummy = new ListNode(0); // dummy가 있어야 floor를 가져감
+        ListNode* dummy = new ListNode(0); // dummy가 있어야 floor를 가져감!!
         dummy->next = head;
         
         ListNode* slow = dummy;
