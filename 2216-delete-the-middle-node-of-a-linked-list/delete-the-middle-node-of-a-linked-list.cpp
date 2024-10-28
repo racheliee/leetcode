@@ -11,30 +11,22 @@
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
-        int len = 1;
-        ListNode* curr = head;
-
-        if (head->next == nullptr)
+        if(head == nullptr)
             return nullptr;
 
-        while (curr->next) {
-            ++len;
-            curr = curr->next;
+        ListNode* dummy = new ListNode(0); // dummy가 있어야 floor를 가져감
+        dummy->next = head;
+        
+        ListNode* slow = dummy;
+        ListNode* fast = head;
+
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
         }
 
-        int mid = floor((double)len / 2.0);
+        slow->next = slow->next->next;
 
-        curr = head;
-        while (--mid) { // pre-decrement to get to the node before the mid one
-            curr = curr->next;
-        }
-
-        ListNode* del = curr->next;
-        if (del->next)
-            curr->next = curr->next->next;
-        else
-            curr->next = nullptr;
-
-        return head;
+        return dummy->next;
     }
 };
