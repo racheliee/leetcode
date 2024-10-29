@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // make sure to pass by reference (&) to use less memory!!
     int editDistance(string& w1, string& w2, int i, int j, vector<vector<int>>& memo){
         if(i == 0) return j;
         if(j == 0) return i;
