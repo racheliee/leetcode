@@ -7,7 +7,7 @@ public:
 
         for(int i = 0, j = 0; i < len; ++i){
             sum += nums[i];
-            while(j <= i && sum >= target){
+            while(sum >= target){
                 ret = min(ret, i-j+1);
                 sum -= nums[j++];
             }
