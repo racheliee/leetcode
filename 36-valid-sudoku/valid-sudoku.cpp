@@ -10,24 +10,13 @@ public:
             for(int j = 0; j < 9; ++j){
                 cell = board[i][j];
                 if(cell !='.'){
-                    if(rows[i].find(cell) != rows[i].end() || squares[i/3][j/3].find(cell) != squares[i/3][j/3].end())
+                    if(rows[i].find(cell) != rows[i].end() || squares[i/3][j/3].find(cell) != squares[i/3][j/3].end() || cols[j].find(cell) != cols[j].end())
                         return false;
                     else{
                         squares[i/3][j/3].insert(cell);
                         rows[i].insert(cell);
+                        cols[j].insert(cell);
                     }
-                }
-            }
-        }
-
-        for(int i = 0; i < 9; ++i){
-            for(int j = 0; j < 9; ++j){
-                cell = board[j][i];
-                if(cell != '.'){
-                    if(cols[i].find(cell) != cols[i].end())
-                        return false;
-                    else
-                        cols[i].insert(cell);
                 }
             }
         }
