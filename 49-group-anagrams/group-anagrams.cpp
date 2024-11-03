@@ -7,14 +7,12 @@ public:
         if(len == 0)
             return ret;
         
-        map<map<char, int>, vector<string>> m;
+        unordered_map<string, vector<string>> m;
 
         for(auto word: strs){
-            map<char, int> tmp;
-            for(auto c: word)
-                ++tmp[c];
-            
-            m[tmp].push_back(word);
+            string temp = word;
+            sort(temp.begin(), temp.end());
+            m[temp].push_back(word);
         }
 
         for(auto it = m.begin(); it != m.end(); ++it){
