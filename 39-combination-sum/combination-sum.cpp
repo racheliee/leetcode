@@ -12,14 +12,22 @@ private:
             ret.push_back(curr);
             return;
         }
-        if(target < val || start >= candidates.size()){
+
+        if(target < val){ // || start >= candidates.size()
             return;
         }
 
-    
-        curr.push_back(candidates[start]);
-        getCombination(candidates, start, target, val + candidates[start], ret, curr);
-        curr.pop_back();
-        getCombination(candidates, start + 1, target, val, ret, curr);
+        // alternative method:
+        // curr.push_back(candidates[start]);
+        // getCombination(candidates, start, target, val + candidates[start], ret, curr);
+        // curr.pop_back();
+        // getCombination(candidates, start + 1, target, val, ret, curr);
+
+        int len = (int)candidates.size();
+        for(int i = start; i < len; ++i){
+            curr.push_back(candidates[i]);
+            getCombination(candidates, i, target, val + candidates[i], ret, curr);
+            curr.pop_back();
+        }
     }
 };
