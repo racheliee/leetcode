@@ -7,6 +7,7 @@ public:
         while(left <= right){
             mid = left + (right-left)/2;
 
+            // just go to the section where the number is bigger (higher chance to find a peak)
             if(mid > 0 && nums[mid-1] > nums[mid])
                 right = mid - 1;
             else if(mid < len-1 && nums[mid+1] > nums[mid])
