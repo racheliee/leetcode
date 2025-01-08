@@ -12,8 +12,10 @@ public:
                 if(prefsuff > words[j].length())
                     continue;
                 
-                if(words[i] == words[j].substr(0, prefsuff) && words[i] == words[j].substr(words[j].length()-prefsuff)){
-                    ++ret;
+                if(words[i] == words[j].substr(0, prefsuff)){
+                    if(words[i] == words[j].substr(words[j].length()-prefsuff)){
+                        ++ret;
+                    }
                 }
             }
         }
