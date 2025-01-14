@@ -1,23 +1,17 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        ios::sync_with_stdio(false);
-        cin.tie(NULL);
-        cout.tie(NULL);
-
-        unordered_map<int, int> num_map;
+        unordered_map<int, int> m;
 
         int len = nums.size(), complement;
 
-        // find two sums
-        for (int i = 0; i < len; ++i) {
+        for(int i = 0; i < len; ++i){
             complement = target - nums[i];
 
-            if (num_map.count(complement)) {
-                return {i, num_map[complement]};
-            }
+            if(m.find(complement) != m.end())
+                return {i, m[complement]};
 
-            num_map[nums[i]] = i;
+            m[nums[i]] = i;
         }
 
         return {};
