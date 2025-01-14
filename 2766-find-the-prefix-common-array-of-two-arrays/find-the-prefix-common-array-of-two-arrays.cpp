@@ -2,20 +2,20 @@ class Solution {
 public:
     vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
         int n = (int)A.size();
+        map<int, int> m;
 
-        unordered_map<int, int> m;
         vector<int> ret(n);
         int cnt = 0;
         for (int i = 0; i < n; ++i) {
             ++m[A[i]];
             ++m[B[i]];
-            for (auto it = m.begin(); it != m.end(); ++it) {
-                // cout << "num " << it->first << " occurs " << it->second <<
-                // endl;
-                if (it->second == 2)
-                    ++cnt;
-            }
-            ret[i] = cnt;
+            if (m[A[i]] == 2)
+                ++cnt;
+            if (m[B[i]] == 2)
+                ++cnt;
+            if (A[i] == B[i])
+                --cnt;
+            ret[i] = i == 0 ? cnt : ret[i - 1] + cnt;
             cnt = 0;
         }
 
