@@ -1,9 +1,5 @@
 class Solution {
 public:
-    bool isOob(int x, int y, int m, int n){
-        return x < 0 || y < 0 || x >= m || y >= n;
-    }
-
     int bfs(vector<vector<int>>& grid, vector<vector<bool>>& visited, int i, int j){
         int m = grid.size(), n = grid[0].size();
         queue<pair<int, int>> q;
