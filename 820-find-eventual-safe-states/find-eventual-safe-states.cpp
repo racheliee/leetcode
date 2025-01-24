@@ -1,11 +1,11 @@
 class Solution {
 public:
-    bool dfs(vector<vector<int>>& graph, map<int, bool> &safe, int i){
-        if(safe.find(i) != safe.end()){
-            return safe[i];
+    bool dfs(vector<vector<int>>& graph, vector<int> &safe, int i){
+        if(safe[i] != 0){
+            return safe[i] == 2;
         }
 
-        safe[i] = false;
+        safe[i] = 1;
 
         for(auto neighbour: graph[i]){
             if(dfs(graph, safe, neighbour) == false){
@@ -13,15 +13,14 @@ public:
             }
         }
 
-        safe[i] = true;
-
+        safe[i] = 2;
         return true;
     }
 
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         int n = graph.size();
         vector<int> ret;
-        map<int, bool> safe;
+        vector<int> safe(n, 0);
 
         for(int i = 0; i < n; ++i){
             if(dfs(graph, safe, i))
