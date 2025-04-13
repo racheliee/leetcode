@@ -6,10 +6,8 @@ public:
         long long ret = 0;
 
         for(int i = 0; i < len; ++i){
-            if(vowels.find(word[i]) == string::npos)
-                continue;
-            
-            ret += ((long long)i+1)*(len-i);
+            if(vowels.find(word[i]) != string::npos)
+                ret += ((long long)i+1)*(len-i);
         }
 
         return ret;
