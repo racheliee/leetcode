@@ -1,3 +1,4 @@
+
 class SnapshotArray {
 public:
     SnapshotArray(int length) {
@@ -7,15 +8,15 @@ public:
     }
     
     void set(int index, int val) {
-        snaps[index][snap_id] = val;
+        snaps[index][snap_id] = val; // O(log(snap calls))
     }
     
     int snap() {
         ++snap_id;
-        return snap_id - 1;
+        return snap_id - 1; // O(1)
     }
     
-    int get(int index, int snap_id) {
+    int get(int index, int snap_id) { // O(log(snap calls))
         auto &m = snaps[index];
         auto it = m.upper_bound(snap_id);
         if (it == m.begin()) return 0;
@@ -23,7 +24,7 @@ public:
     }
 
 private:
-    vector<map<int, int>> snaps; // snaps[index] = snap_id, val
+    vector<map<int, int>> snaps; // snaps[index] = snap_id, val; space: O(indices*snap()))
     int snap_id;
 };
 
