@@ -48,7 +48,7 @@ public:
                 break;
         }
 
-        string ret(slen - i, 'U');
+        string ret(slen - i, 'U'); // use stringstream to prevent resizing
         ret += path_d.substr(i);
 
         return ret;
