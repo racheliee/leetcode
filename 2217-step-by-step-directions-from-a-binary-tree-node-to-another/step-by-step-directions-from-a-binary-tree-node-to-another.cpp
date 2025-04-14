@@ -48,10 +48,7 @@ public:
                 break;
         }
 
-        string ret = "";
-        for (int j = i; j < slen; ++j)
-            ret += "U";
-
+        string ret(slen - i, 'U');
         ret += path_d.substr(i);
 
         return ret;
