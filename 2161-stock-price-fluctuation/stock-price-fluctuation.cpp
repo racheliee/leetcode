@@ -1,27 +1,46 @@
 class StockPrice {
 public:
-    StockPrice() {}
-
+    StockPrice(): price_count(), stocks() {
+        
+    }
+    
     void update(int timestamp, int price) {
-        int curr_price = -1;
-        if (stock_map.count(timestamp)) {
-            curr_price = stock_map[timestamp];
-            prices.erase(prices.find(curr_price));
+        // if there is an existing record, delete it
+        if(stocks.find(timestamp) != stocks.end()) {
+            int curr_price = stocks[timestamp];
+            if(price_count[curr_price] > 0) {
+                --price_count[stocks[timestamp]];
+            }
+            if(price_count[curr_price] == 0) {
+                price_count.erase(curr_price);
+            }
         }
 
-        prices.insert(price);
-        stock_map[timestamp] = price;
+        // add new record
+        stocks[timestamp] = price;
+        if(price_count.find(price) != price_count.end()){
+            ++price_count[price];
+        }else{
+            price_count[price] = 1;
+        }
+
+    }
+    
+    int current() {
+        return prev(stocks.end())->second;
+    }
+    
+    int maximum() {
+        return prev(price_count.end())->first;
+    }
+    
+    int minimum() {
+        return price_count.begin()->first;
     }
 
-    int current() { return prev(stock_map.end())->second; }
-
-    int maximum() { return *prices.rbegin(); }
-
-    int minimum() { return *prices.begin(); }
-
 private:
-    map<int, int> stock_map; // timestamp, count
-    multiset<int> prices;    // price, count
+    map<int, int> price_count; // price, number of occurrence
+    map<int, int> stocks; // timestamp, price
 };
 
 /**
