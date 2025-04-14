@@ -1,31 +1,47 @@
 class MyCalendar {
 public:
-    MyCalendar() : bookings() {}
+    MyCalendar() { root = nullptr; }
+
+    struct booking {
+        int start;
+        int end;
+        booking* right;
+        booking* left;
+    };
+
+    bool add_booking(int start, int end) {
+        booking* curr = root;
+
+        while (1) {
+            if (end <= curr->start) {
+                if (!curr->left) {
+                    curr->left = new booking{start, end, nullptr, nullptr};
+                    return true;
+                }
+                curr = curr->left;
+            } else if (start >= curr->end) {
+                if (!curr->right) {
+                    curr->right = new booking{start, end, nullptr, nullptr};
+                    return true;
+                }
+                curr = curr->right;
+            } else {
+                return false;
+            }
+        }
+    }
 
     bool book(int startTime, int endTime) {
-        // get the booking with the start_time of at least startTime
-        auto curr = bookings.lower_bound(startTime);
-
-        if (curr != bookings.end()) {
-            cout << curr->first << " " << curr->second << endl;
+        if (!root) {
+            root = new booking{startTime, endTime, nullptr, nullptr};
+            return true;
         }
 
-        // check if there is a conflict with the startTime of curr (make sure
-        // it's not the end)
-        if (curr != bookings.end() && curr->first < endTime)
-            return false;
-
-        // check if the startTime doesn't have conflict with the endTime of the prvious of curr
-        if (curr != bookings.begin() && prev(curr)->second > startTime)
-            return false;
-
-        bookings[startTime] = endTime; // don't forget to add it!!
-
-        return true;
+        return add_booking(startTime, endTime);
     }
 
 private:
-    map<int, int> bookings;
+    booking* root;
 };
 
 /**
