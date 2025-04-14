@@ -1,17 +1,19 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        int len = nums.size();
+        unordered_map<int, int> m;
 
-        for (int i = 0; i < len; ++i) {
-            int complement = target - nums[i];
+        int len = nums.size(), complement;
 
-            // 이미 찾은 영역은 또 볼 필요가 없으니까
-            auto found = find(nums.begin() + i + 1, nums.end(), complement);
-            if (found != nums.end())
-                return {i, (int)(found - nums.begin())};
+        for(int i = 0; i < len; ++i){
+            complement = target - nums[i];
+
+            if(m.find(complement) != m.end())
+                return {i, m[complement]};
+
+            m[nums[i]] = i;
         }
 
-        return vector<int>();
+        return {};
     }
 };
