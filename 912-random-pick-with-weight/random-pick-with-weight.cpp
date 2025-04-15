@@ -11,7 +11,8 @@ public:
     }
     
     int pickIndex() {
-        int randn = rand() % prefix_sums.back(); // random in [1, total]
+        int randn = rand() % prefix_sums.back(); // random in [0, total-1]; 
+                                                 //to use lower_bound it needs to divide by back + 1;
         auto it = upper_bound(prefix_sums.begin(), prefix_sums.end(), randn);
 
         return it - prefix_sums.begin();
