@@ -1,49 +1,50 @@
 class Solution {
 public:
-    bool isOob(int nx, int ny, int m, int n) {
-        return nx < 0 || ny < 0 || nx >= m || ny >= n;
+    bool is_oob(int x, int y, int m, int n) {
+        return x < 0 || y < 0 || x >= m || y >= n;
     }
 
-    void bfs(vector<vector<char>>& grid, vector<vector<bool>>& visited, int x, int y) {
-        vector<int> dx = {-1, 0, 1, 0};
-        vector<int> dy = {0, -1, 0, 1};
+    void bfs(vector<vector<char>> & grid, int row, int col) {
         int m = grid.size(), n = grid[0].size();
-
         queue<pair<int, int>> q;
 
-        q.push({x, y});
-        visited[x][y] = true;
+        q.push({row, col});
 
-        while (!q.empty()) {
-            auto [cx, cy] = q.front();
+        while(!q.empty()) {
+            auto [x, y] = q.front();
             q.pop();
 
-            for (int i = 0; i < 4; ++i) {
-                int nx = cx + dx[i];
-                int ny = cy + dy[i];
-
-                if (!isOob(nx, ny, m, n) && grid[nx][ny] == '1' && !visited[nx][ny]){
+            for(int i = 0; i < 4; ++i) {
+                int nx = x + dx[i], ny = y + dy[i];
+                if(is_oob (nx, ny, m, n))
+                    continue;
+                
+                if(grid[nx][ny] == '1') { // this is a char grid
                     q.push({nx, ny});
-                    visited[nx][ny] = true;
+                    grid[nx][ny] = '0';
                 }
             }
         }
+
     }
-
+    
     int numIslands(vector<vector<char>>& grid) {
-        int ret = 0;
         int m = grid.size(), n = grid[0].size();
-        vector<vector<bool>> visited(m, vector<bool>(n, false));
 
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (grid[i][j] == '1' && !visited[i][j]) {
+        int ret = 0;
+        for(int i = 0; i < m; ++i) {
+            for(int j = 0; j < n; ++j) {
+                if(grid[i][j] == '1') {
+                    bfs(grid, i, j);
                     ++ret;
-                    bfs(grid, visited, i, j);
                 }
             }
         }
 
         return ret;
     }
+
+private:
+    vector<int> dx = {-1, 0, 1, 0};
+    vector<int> dy = {0, -1, 0, 1};
 };
