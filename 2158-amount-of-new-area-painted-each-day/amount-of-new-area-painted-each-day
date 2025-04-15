@@ -1,0 +1,37 @@
+// leetcode premium--not sure if it works
+class Solution {
+public:
+    vector<int> amountPainted(vector<vector<int>>& paint) {
+        set<pair<int, int>> work;
+        vector<int> res;
+
+        for (auto& p : paint) {
+            int s = p[0], e = p[1];
+            int amt = e - s;
+
+            auto it = work.lower_bound({s, s});
+            if (it != work.begin()) --it;
+
+            while (it != work.end() && it->first < e) {
+                if (it->second <= s) {
+                    ++it;
+                    continue;
+                }
+
+                // Subtract already painted overlap
+                amt -= min(e, it->second) - max(s, it->first); // max of left, min of right -> 최소 범위
+
+                // Expand current range to merge
+                s = min(s, it->first); // min of left
+                e = max(e, it->second); // max of right
+
+                it = work.erase(it);
+            }
+
+            work.insert({s, e});
+            res.push_back(amt);
+        }
+
+        return res;
+    }
+};
