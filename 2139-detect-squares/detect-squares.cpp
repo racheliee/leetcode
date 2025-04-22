@@ -10,9 +10,6 @@ public:
 
         int ret = 0;
 
-        if (coor.count(x) == 0) // no coordinates on the same x-axis
-            return 0;
-
         for (auto& [x2, y_coor] : coor) {
             if (x2 == x)
                 continue;
