@@ -8,8 +8,6 @@ public:
         for (auto i : adj[curr]) {
             if (visited[i] == 1)
                 return false; // cycle
-            else if (visited[i] == 2)
-                continue; // visited
 
             if (!dfs(i, ret, visited, adj))
                 return false;
