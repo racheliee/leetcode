@@ -3,8 +3,8 @@ public:
     struct Ratio {
         double diff;
         double ratio;
-        int pass;
-        int total;
+        double pass;
+        double total;
     };
 
     struct CompareRatio {
@@ -16,23 +16,24 @@ public:
     double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
         priority_queue<Ratio, vector<Ratio>, CompareRatio> pq;
 
-        for(const auto& c: classes) {
-            double ratio = (double)c[0]/(double)c[1];
-            pq.push({(double)(c[0]+1)/(double)(c[1]+1) - ratio, ratio, c[0], c[1]});
+        for (const auto& c : classes) {
+            double ratio = (double)c[0] / (double)c[1];
+            pq.push({(double)(c[0] + 1) / (double)(c[1] + 1) - ratio, ratio,
+                     (double)c[0], (double)c[1]});
         }
 
-        while(extraStudents--) {
+        while (extraStudents--) {
             auto curr = pq.top();
             pq.pop();
             ++curr.pass;
             ++curr.total;
-            curr.ratio = (double)curr.pass / (double)curr.total;
-            curr.diff = (double)(curr.pass+1) / (double)(curr.total+1) - curr.ratio;
+            curr.ratio = curr.pass / curr.total;
+            curr.diff = (curr.pass + 1) / (curr.total + 1) - curr.ratio;
             pq.push(curr);
         }
 
         double acc = 0.0;
-        while(!pq.empty()) {
+        while (!pq.empty()) {
             acc += pq.top().ratio;
             pq.pop();
         }
