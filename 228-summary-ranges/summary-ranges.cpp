@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
+        // two pointer 쓰삼;;
         vector<string> ret;
         int len = nums.size();
         if(!len) return ret;
