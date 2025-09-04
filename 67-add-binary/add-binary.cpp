@@ -10,9 +10,7 @@ public:
         int alen = a.length(), blen = b.length();
         while(b.length() < alen) 
             b += '0';
-
-        cout << a << endl << b << endl;
-
+            
         int carry = 0;
         string ret = "";
         for(int i = 0; i < alen; ++i) {
