@@ -1,31 +1,29 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int m = (int)matrix.size();
-        int n = (int)matrix[0].size();
+        int m = matrix.size(), n = matrix[0].size();
+        vector<int> ret(m * n);
 
-        int top = 0, bot = m-1, left = 0, right = n-1, idx = 0;
-        vector<int> ret(m*n);
-        while(top <= bot && left <= right){
-            for(int i = left; i <= right; ++i)
-                ret[idx++] = matrix[top][i];
-            ++top;
+        int l = 0, r = n - 1, t = 0, b = m - 1, idx = 0;
+        while (l <= r && t <= b) {
+            for (int i = l; i <= r; ++i) // top row
+                ret[idx++] = matrix[t][i];
+            ++t;
 
-            for(int i = top; i <= bot; ++i)
-                ret[idx++] = matrix[i][right];
-            --right;
-            
-            if(top <= bot){
-                for(int i = right; i >=left; --i)
-                    ret[idx++] = matrix[bot][i];
-                --bot;
+            for (int i = t; i <= b; ++i) // right col
+                ret[idx++] = matrix[i][r];
+            --r;
+
+            if (t <= b) {
+                for (int i = r; i >= l; --i) // bot row
+                    ret[idx++] = matrix[b][i];
+                --b;
             }
 
-            if(left <= right){
-                for(int i = bot; i >= top; --i){
-                    ret[idx++] = matrix[i][left];
-                }
-                ++left;
+            if (l <= r) {
+                for (int i = b; i >= t; --i) // left col
+                    ret[idx++] = matrix[i][l];
+                ++l;
             }
         }
 
