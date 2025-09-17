@@ -1,25 +1,20 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        int len = (int)nums.size();
-        unordered_set<int> s;
+        unordered_set<int> s(nums.begin(), nums.end());
         int ret = 0;
 
-        for(int i = 0; i < len; ++i)
-            s.insert(nums[i]);
-        
-        for(int i = 0; i < len; ++i){
-            // 지금 element가 sequence의 시작
-            if(s.find(nums[i]-1) == s.end()){
-                int j = nums[i];
-                
-                // 계속 j 증가 시키면서 set에 있는지 확인
-                while(s.find(j) != s.end())
-                    ++j;
-                
-                ret = max(ret, j - nums[i]);
-            }
-        }
+        for(const auto& n: s) {
+            // if there is an early start, skip
+            if(s.find(n-1) != s.end()) continue;
+
+            int find = n;
+ 
+            while(s.find(find) != s.end())
+                ++find;
+            
+            ret = max(ret, find - n);
+        }   
 
         return ret;
     }
